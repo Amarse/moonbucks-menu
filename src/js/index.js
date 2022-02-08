@@ -1,25 +1,37 @@
 //요구 사항 구현 전략
 
-//TO-DO 메뉴 추가
-//- [X] 메뉴의 이름을 입력 받고 엔터키를 누르면 메뉴가 추가 된다.
-// -[X] 추가 되는 메뉴는 <ul id="espresso-menu-list" class="mt-3 pl-0"></ul> 안에 삽입해야 한다.
-//- [X] 총 갯수의 count 가 상단에 노출 된다.
-//- [X] 메뉴가 추가 되고 나면, input 값은 빈값이 된다.
-//- [X] 사용자 값이 빈 값이라면 추가 되지 않는다.
-//- [X] 메뉴 이름을 입력 받고 확인 버튼을 클릭 하면 메뉴 추가를 한다.
+// localStorage에 데이터를 저장하여 새로고침해도 데이터가 남아있게 한다.
+//- [] localStorage 에 데이터를 저장한다.
+// -[] localStorage 데이터를 읽어온다.
 
-//TO-DO 메뉴 수정
-//- [X] 메뉴 수정 버튼을 누르면, 모달이 활성화가 된다.
-//- [X] 알트창에 변경할 메뉴를 적고 확인 버튼을 누르면 업데이트가 된다.
+// 에스프레소, 프라푸치노, 블렌디드, 티바나, 디저트 각각의 종류별로 메뉴판을 관리할 수 있게 만든다.
+//- [] 카테고리 별 메뉴판 관리
 
-//TO-DO 메뉴 삭제
-//- [X] 삭제 버튼을 누르면, 확인 모달창이 뜬다.
-//- [X] 모달창의 확인버튼이 뜨면 메뉴가 삭제 된다.
-//- [X] 삭제된 갯수를 뺸 나머지count 가 상단에 노출 된다.
+// 페이지에 최초로 접근할 때는 에스프레소 메뉴가 먼저 보이게 한다.
+//- [] 로딩될때 localStorage에 에스프레소 메뉴를 불러온다.
+//- [] 에스프레소 메뉴를 페이지에 노출한다.
+
+// 품절 상태인 경우를 보여줄 수 있게, 품절 버튼을 추가하고 sold-out class를 추가하여 상태를 변경한다.
+//- [] 품절버튼을 추가 한다.
+//- [] 품절버튼을 클릭하면 해당 메뉴를 localStorege에 저장한다.
+//- [] 해당 메뉴에 상태를 변경한다.
+
+
 
 const $ = (selector) => document.querySelector(selector);
 
+const store = {
+  setLocalStorage(menu) {
+    localStorage.setItem("menu", JSON.stringify(menu));
+  },
+  
+  getLocalStorage() {
+    localStorage.getItem("menu");
+  }
+};
+
 function App() {
+  //변하는값(싱태) = 메뉴명 
   const updateMenuCount = () => {
     const menuCount = $("#espresso-menu-list").querySelectorAll("li").length;
     $(".menu-count").innerText = `총 ${menuCount}개`;
